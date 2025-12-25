@@ -1,5 +1,5 @@
 import NavbarDemo from "./components/ui/NavbarDemo";
-import { Hero } from "./components/ui/Hero";
+import Hero from "./components/ui/Hero";
 import ProductCard from "./components/ui/ProductCard";
 import Testimonials from "./components/ui/Testimonials";
 import { Footer } from "./components/ui/Footer";

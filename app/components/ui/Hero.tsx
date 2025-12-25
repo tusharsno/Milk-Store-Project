@@ -1,230 +1,238 @@
 "use client";
 
-import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Sparkles } from "../ui/sparkles";
+import { motion } from "framer-motion";
 
-export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  const words = [
-    { text: "Farm", className: "text-green-600 dark:text-green-400" },
-    { text: "To" },
-    { text: "Table" },
-    { text: "in" },
-    { text: "24", className: "text-blue-600 dark:text-blue-400" },
-    { text: "Hours." },
-  ];
-
-  const features = [
-    { label: "Pasteurized", value: "100%" },
-    { label: "Preservative-Free", value: "Guaranteed" },
-    { label: "Morning Delivery", value: "6-8 AM" },
-  ];
-
+export default function Hero() {
   return (
-    <section
-      ref={containerRef}
-      className="relative flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8
-      bg-gradient-to-b from-white via-blue-50/50 to-white
-      dark:from-neutral-950 dark:via-neutral-900/50 dark:to-neutral-950
-      overflow-hidden"
-    >
-      {/* PREMIUM BACKGROUND */}
+    <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-4 sm:px-6 
+    bg-gradient-to-b from-white via-gray-50/20 to-white 
+    dark:from-gray-950 dark:via-gray-900/10 dark:to-gray-950 overflow-hidden">
+      
+      {/* Professional Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[40rem] h-[40rem] 
-        bg-gradient-to-r from-blue-100/20 to-green-100/20 
-        dark:from-blue-900/10 dark:to-green-900/10 rounded-full blur-3xl 
-        animate-pulse-slow" />
-
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-              backgroundSize: "40px 40px",
-            }}
-          />
+        {/* Subtle gradient orbs */}
+        <div className="absolute top-1/4 -left-40 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-transparent 
+        dark:from-blue-900/10 dark:to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-gradient-to-bl from-green-100/30 to-transparent 
+        dark:from-green-900/10 dark:to-transparent rounded-full blur-3xl" />
+        
+        {/* Very subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.01]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(90deg, transparent 95%, rgba(59, 130, 246, 0.1) 100%),
+                             linear-gradient(0deg, transparent 95%, rgba(59, 130, 246, 0.1) 100%)`,
+            backgroundSize: '40px 40px'
+          }} />
         </div>
-
+        
+        {/* Ultra-subtle floating droplets (optional, if you want minimal dairy theme) */}
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-16 h-16 rounded-full bg-gradient-to-br 
-            from-blue-100/30 to-white/30 
-            dark:from-blue-900/20 dark:to-neutral-800/20 
-            backdrop-blur-sm border border-white/20"
-            initial={{ y: 0, x: 0 }}
+            className="absolute rounded-full bg-gradient-to-br from-white/20 to-blue-50/10 
+            dark:from-white/5 dark:to-blue-900/5 backdrop-blur-sm"
+            initial={{ opacity: 0, y: 0 }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, Math.sin(i) * 20, 0],
+              opacity: [0.1, 0.15, 0.1],
+              y: [0, -15, 0]
             }}
             transition={{
               duration: 4 + i,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 0.5,
+              delay: i * 0.5
             }}
             style={{
-              left: `${20 + i * 15}%`,
-              top: `${20 + (i % 3) * 20}%`,
+              width: `${40 + i * 5}px`,
+              height: `${40 + i * 5}px`,
+              left: `${10 + i * 15}%`,
+              top: `${20 + (i % 3) * 25}%`,
             }}
           />
         ))}
       </div>
 
-      {/* CONTENT WRAPPER */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* LEFT CONTENT */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+      {/* Content Container */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 max-w-6xl mx-auto text-center px-4"
+      >
+        {/* Trust Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-green-50 
+          dark:from-blue-900/20 dark:to-green-900/20 border border-blue-100 dark:border-blue-800/50 mb-6"
+        >
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-sm font-medium text-green-700 dark:text-green-400">
+            Trusted by 10,000+ Families
+          </span>
+        </motion.div>
+
+        {/* Main Title */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <span className="block text-gray-900 dark:text-white">Experience Milk</span>
+          <motion.span 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="block bg-gradient-to-r from-blue-600 via-blue-500 to-green-600 
+            bg-clip-text text-transparent mt-2"
           >
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full 
-            bg-gradient-to-r from-green-50 to-blue-50 
-            dark:from-green-900/20 dark:to-blue-900/20 
-            border border-green-100 dark:border-green-800/50 mb-8">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                Trusted by 10,000+ Families
-              </span>
-            </div>
+            Farm To Table in 24 Hours.
+          </motion.span>
+        </h1>
 
-            {/* HEADLINE */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-              <span className="block text-neutral-800 dark:text-white">
-                Experience Milk
-              </span>
-              <span className="block">
-                <TypewriterEffectSmooth
-                  words={words}
-                  className="text-4xl sm:text-5xl lg:text-6xl"
-                />
-              </span>
-            </h1>
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
+        >
+          Direct from our organic farms to your doorstep. Certified organic, 
+          hormone-free, delivered daily before sunrise.
+        </motion.p>
 
-            {/* SUBTITLE */}
-            <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-300 
-            mb-10 leading-relaxed max-w-xl">
-              Direct from our organic farms to your doorstep.
-              <span className="font-semibold text-blue-600 dark:text-blue-400">
-                {" "}
-                Certified organic
-              </span>
-              ,
-              <span className="font-semibold text-green-600 dark:text-green-400">
-                {" "}
-                hormone-free
-              </span>
-              , delivered daily before sunrise.
-            </p>
+        {/* Feature Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto"
+        >
+          {[
+            {
+              value: "100%",
+              label: "Pasteurized",
+              icon: "✅",
+              color: "from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20"
+            },
+            {
+              value: "Guaranteed",
+              label: "Preservative-Free",
+              icon: "🌿",
+              color: "from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20"
+            },
+            {
+              value: "6-8 AM",
+              label: "Morning Delivery",
+              icon: "⏰",
+              color: "from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20"
+            }
+          ].map((feature, index) => (
+            <motion.div
+              key={feature.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 + index * 0.1 }}
+              className={`p-6 rounded-2xl bg-gradient-to-br ${feature.color} 
+              border border-gray-200/50 dark:border-gray-800/50 backdrop-blur-sm`}
+            >
+              <div className="text-3xl mb-2">{feature.icon}</div>
+              <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                {feature.value}
+              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                {feature.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-            {/* FEATURES */}
-            <div className="grid grid-cols-3 gap-4 mb-10">
-              {features.map((f, i) => (
-                <div
-                  key={i}
-                  className="p-4 rounded-xl bg-white/50 dark:bg-neutral-900/50 
-                  backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/50"
-                >
-                  <div className="text-2xl font-bold text-neutral-900 dark:text-white">
-                    {f.value}
-                  </div>
-                  <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                    {f.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA BUTTON */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative px-8 py-4 rounded-xl 
-                bg-gradient-to-r from-blue-600 to-blue-700 
-                text-white font-semibold text-lg shadow-lg overflow-hidden"
-              >
-                <span className="relative z-10">Start Your Daily Delivery</span>
-                <Sparkles className="absolute inset-0" />
-              </motion.button>
-
-              <button className="px-6 py-4 rounded-xl border-2 border-neutral-300 dark:border-neutral-700 
-              hover:border-blue-400 dark:hover:border-blue-600 transition-all duration-300 
-              text-neutral-700 dark:text-neutral-300 font-medium">
-                Our Process →
-              </button>
-            </div>
-          </motion.div>
-
-          {/* RIGHT VISUAL (SCROLL ANIMATION) */}
-          <motion.div
-            style={{ y, opacity }}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 
+            text-white font-semibold text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl 
+            hover:shadow-blue-500/30 transition-all overflow-hidden"
           >
-            {/* PRODUCT CARD */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl 
-            border border-white/20 dark:border-neutral-800/50">
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              Start Daily Delivery
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 
+            group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.button>
+          
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 rounded-xl border-2 border-gray-300 dark:border-gray-700 
+            text-gray-700 dark:text-gray-300 font-semibold text-lg hover:bg-gray-50 
+            dark:hover:bg-gray-900/50 transition-colors"
+          >
+            View Products
+          </motion.button>
+        </motion.div>
 
-              <div className="aspect-square bg-gradient-to-br from-blue-50/50 to-green-50/50 
-              dark:from-blue-900/20 dark:to-green-900/20 flex items-center justify-center p-12">
-                <div className="relative w-64 h-80 mx-auto">
-                  {/* Bottle */}
-                  <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-b from-white to-blue-100 
-                  dark:from-neutral-800 dark:to-blue-900/30 rounded-full border-8 
-                  border-white/50 dark:border-neutral-800/50 shadow-2xl">
-                    <div className="absolute top-4 inset-x-4 h-2/3 bg-gradient-to-b from-blue-100/50 
-                    to-white/30 dark:from-blue-800/30 dark:to-neutral-800/30 rounded-t-full overflow-hidden">
-                      <motion.div
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                        className="absolute inset-0 bg-gradient-to-b from-blue-400/30 to-blue-600/10"
-                      />
-                    </div>
-
-                    {/* Label */}
-                    <div className="absolute top-1/4 inset-x-8 h-1/4 bg-white/80 dark:bg-neutral-900/80 
-                    backdrop-blur-sm rounded-xl border border-white/50 dark:border-neutral-700/50 
-                    flex items-center justify-center">
-                      <span className="font-bold text-blue-600 dark:text-blue-400 text-lg">
-                        ORGANIC
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Cap */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 
-                  bg-gradient-to-b from-neutral-300 to-neutral-400 
-                  dark:from-neutral-600 dark:to-neutral-700 rounded-t-xl" />
+        {/* Milk Bottle Preview */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="mt-16 relative"
+        >
+          <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-white/80 
+          dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 
+          shadow-lg">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-14 relative">
+                {/* Mini milk bottle icon */}
+                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-white to-blue-100 
+                dark:from-gray-800 dark:to-blue-900/30 rounded-full border-2 border-white/50 
+                dark:border-gray-700/50">
+                  <div className="absolute top-2 inset-x-2 h-6 bg-gradient-to-b from-blue-100/50 to-transparent 
+                  dark:from-blue-800/30 dark:to-transparent rounded-t-full rounded-b-lg" />
                 </div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-2 
+                bg-gradient-to-b from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700 
+                rounded-t-lg" />
               </div>
-
-              {/* Overlay Info */}
-              <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t 
-              from-black/80 via-black/40 to-transparent text-white">
-                <div className="text-lg font-semibold">Today's Fresh Batch</div>
-                <div className="text-sm opacity-90">Chilled at 4°C • Packed 3 hours ago</div>
+              <div className="text-left">
+                <div className="font-bold text-gray-900 dark:text-white text-sm">ORGANIC</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Today's Fresh Batch</div>
               </div>
             </div>
-          </motion.div>
-        </div>
-      </div>
+            <div className="h-8 w-px bg-gray-200 dark:bg-gray-800" />
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              Chilled at 4°C • Packed 3 hours ago
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="flex flex-col items-center gap-2 text-gray-400 dark:text-gray-600"
+        >
+          <span className="text-xs font-medium">Scroll to explore</span>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
