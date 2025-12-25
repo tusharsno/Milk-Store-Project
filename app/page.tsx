@@ -1,17 +1,12 @@
-// import Navbar from "./components/Navbar";
-// import ProductCard from "./components/ProductCard";
-import ProductCard from "./components/ui/ProductCard";
-// import Footer from "./components/Footer";
-import { Footer } from "./components/ui/Footer";
-// import { NavbarDemo } from "./components/ui/NavbarDemo";
 import NavbarDemo from "./components/ui/NavbarDemo";
 import { Hero } from "./components/ui/Hero";
+import ProductCard from "./components/ui/ProductCard";
 import Testimonials from "./components/ui/Testimonials";
+import { Footer } from "./components/ui/Footer";
 
 export default function Page() {
   return (
     <div>
-      {/* <Navbar /> */}
       <NavbarDemo />
       <Hero />
 
@@ -35,7 +30,7 @@ export default function Page() {
           img="/ghee.jpg"
         />
       </section>
-      {/* <ProductCard /> */}
+
       <Testimonials />
 
       <Footer />
